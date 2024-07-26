@@ -1,10 +1,8 @@
 import express, { RequestHandler } from "express";
-import { db } from "./datastore";
+import { createPostHandler, listPostsHandler } from "./handlers/postHandlers";
 
 const app = express();
 app.use(express.json());
-
-app.listen(3000);
 
 const logRequests: RequestHandler = (req, res, next) => {
   console.log(req.method, req.path, "- body:", req.body);
@@ -13,12 +11,7 @@ const logRequests: RequestHandler = (req, res, next) => {
 
 app.use(logRequests);
 
-app.get("/posts", (req, res) => {
-  res.send({ posts: db.listPosts() });
-});
+app.get("/posts", listPostsHandler);
+app.post("/posts", createPostHandler);
 
-app.post("/posts", (req, res) => {
-  const post = req.body;
-  db.createPost(post);
-  res.sendStatus(201);
-});
+app.listen(3000);
