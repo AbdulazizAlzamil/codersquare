@@ -1,5 +1,6 @@
 import express, { ErrorRequestHandler, RequestHandler } from "express";
 import { createPostHandler, listPostsHandler } from "./handlers/postHandlers";
+import asyncHandler from "express-async-handler";
 
 const app = express();
 app.use(express.json());
@@ -11,8 +12,8 @@ const logRequests: RequestHandler = (req, res, next) => {
 
 app.use(logRequests);
 
-app.get("/v1/posts", listPostsHandler);
-app.post("/v1/posts", createPostHandler);
+app.get("/v1/posts", asyncHandler(listPostsHandler));
+app.post("/v1/posts", asyncHandler(createPostHandler));
 
 const errHandler: ErrorRequestHandler = (err, req, res, next) => {
   console.error("Uncaught exception:", err);
