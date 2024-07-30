@@ -1,18 +1,24 @@
+import {
+  CreatePostRequest,
+  CreatePostResponse,
+  ListPostsRequest,
+  ListPostsResponse,
+} from "../api";
 import { db } from "../datastore";
 import { ExpressHandler, Post } from "../types";
 import crypto from "crypto";
 
-export const listPostsHandler: ExpressHandler<{}, {}> = (req, res) => {
-  res.send({ posts: db.listPosts() });
+export const listPostsHandler: ExpressHandler<
+  ListPostsRequest,
+  ListPostsResponse
+> = async (req, res) => {
+  res.send({ posts: await db.listPosts() });
 };
-
-type CreatePostRequest = Pick<Post, "title" | "url" | "userId">;
-interface CreatePostResponse {}
 
 export const createPostHandler: ExpressHandler<
   CreatePostRequest,
   CreatePostResponse
-> = (req, res) => {
+> = async (req, res) => {
   if (!req.body.title || !req.body.url || !req.body.userId) {
     return res.sendStatus(400);
   }
@@ -25,6 +31,6 @@ export const createPostHandler: ExpressHandler<
     userId: req.body.userId,
   };
 
-  db.createPost(post);
+  await db.createPost(post);
   res.sendStatus(201);
 };
