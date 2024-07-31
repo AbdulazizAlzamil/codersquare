@@ -1,27 +1,33 @@
 import express, { ErrorRequestHandler, RequestHandler } from "express";
 import { createPostHandler, listPostsHandler } from "./handlers/postHandlers";
 import asyncHandler from "express-async-handler";
+import { initDb } from "./datastore";
 
-const app = express();
-app.use(express.json());
+(async () => {
+  await initDb();
 
-const logRequests: RequestHandler = (req, res, next) => {
-  console.log(req.method, req.path, "- body:", req.body);
-  next();
-};
+  const app = express();
 
-app.use(logRequests);
+  app.use(express.json());
 
-app.get("/v1/posts", asyncHandler(listPostsHandler));
-app.post("/v1/posts", asyncHandler(createPostHandler));
+  const logRequests: RequestHandler = (req, res, next) => {
+    console.log(req.method, req.path, "- body:", req.body);
+    next();
+  };
 
-const errHandler: ErrorRequestHandler = (err, req, res, next) => {
-  console.error("Uncaught exception:", err);
-  return res
-    .status(500)
-    .send("0ops, an unexpected error occurred, please try again");
-};
+  app.use(logRequests);
 
-app.use(errHandler);
+  app.get("/v1/posts", asyncHandler(listPostsHandler));
+  app.post("/v1/posts", asyncHandler(createPostHandler));
 
-app.listen(3000);
+  const errHandler: ErrorRequestHandler = (err, req, res, next) => {
+    console.error("Uncaught exception:", err);
+    return res
+      .status(500)
+      .send("0ops, an unexpected error occurred, please try again");
+  };
+
+  app.use(errHandler);
+
+  app.listen(3000);
+})();
