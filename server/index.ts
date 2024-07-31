@@ -24,7 +24,7 @@ import { initDb } from "./datastore";
     console.error("Uncaught exception:", err);
     return res
       .status(500)
-      .send("0ops, an unexpected error occurred, please try again");
+      .send("Oops, an unexpected error occurred, please try again");
   };
 
   app.use(errHandler);
