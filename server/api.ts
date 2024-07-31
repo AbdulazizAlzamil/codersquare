@@ -33,8 +33,23 @@ export interface ListLikesResponse {
 }
 
 // User APIs
-export type CreateUserRequest = Pick<
+export type SignUpRequest = Pick<
   User,
   "email" | "firstName" | "lastName" | "username" | "password"
 >;
-export interface CreateUserResponse {}
+export interface SignUpResponse {}
+
+export interface SignInRequest {
+  login: string;
+  password: string;
+}
+
+export interface SignInRequest {
+  login: string;
+  password: string;
+}
+
+export type SignInResponse = Pick<
+  User,
+  "email" | "firstName" | "lastName" | "username" | "id"
+>;
