@@ -7,9 +7,11 @@ export interface ListPostsResponse {
 }
 
 export type CreatePostRequest = Pick<Post, "title" | "url" | "userId">;
+export interface CreatePostResponse {}
+
 export type DeletePostRequest = { postId: string };
 export type DeletePostResponse = {};
-export interface CreatePostResponse {}
+
 export type GetPostRequest = { postId: string };
 export interface GetPostResponse {
   post: Post;
@@ -18,6 +20,7 @@ export interface GetPostResponse {
 // Comment APIs
 export type CreateCommentRequest = Pick<Comment, "comment">;
 export interface CreateCommentResponse {}
+
 export type CountCommentsRequest = { postId: string };
 export type CountCommentsResponse = { count: number };
 
@@ -43,12 +46,6 @@ export interface SignInRequest {
   login: string;
   password: string;
 }
-
-export interface SignInRequest {
-  login: string;
-  password: string;
-}
-
 export type SignInResponse = Pick<
   User,
   "email" | "firstName" | "lastName" | "username" | "id"
