@@ -1,4 +1,4 @@
-import { Post, User, Comment, JwtObject } from "./types";
+import { Post, User, Comment } from "./types";
 
 // Post APIs
 export interface ListPostsRequest {}

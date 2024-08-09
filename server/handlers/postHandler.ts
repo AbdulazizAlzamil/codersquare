@@ -3,9 +3,9 @@ import {
   CreatePostResponse,
   ListPostsRequest,
   ListPostsResponse,
-} from "../api";
+} from "@codersquare/shared/api";
 import { db } from "../datastore";
-import { ExpressHandler, Post } from "../types";
+import { ExpressHandler, Post } from "@codersquare/shared/types";
 import crypto from "crypto";
 
 export const listPostsHandler: ExpressHandler<

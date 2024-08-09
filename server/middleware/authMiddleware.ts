@@ -1,6 +1,6 @@
 import { verifyJwt } from "../auth";
 import { db } from "../datastore";
-import { ExpressHandler } from "../types";
+import { ExpressHandler } from "@codersquare/shared/types";
 
 export const authMiddleware: ExpressHandler<any, any> = async (
   req,
@@ -9,7 +9,7 @@ export const authMiddleware: ExpressHandler<any, any> = async (
 ) => {
   const token = req.headers.authorization?.split(" ")[1];
   if (!token) {
-    return res.sendStatus(401);
+    return next();
   }
 
   try {
@@ -21,7 +21,7 @@ export const authMiddleware: ExpressHandler<any, any> = async (
 
     res.locals.userId = user.id;
 
-    next();
+    return next();
   } catch {
     return res.status(401).send({ error: "Bad token" });
   }

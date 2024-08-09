@@ -3,10 +3,10 @@ import {
   SignInResponse,
   SignUpRequest,
   SignUpResponse,
-} from "../api";
+} from "@codersquare/shared/api";
 import { signJwt } from "../auth";
 import { db } from "../datastore";
-import { ExpressHandler, User } from "../types";
+import { ExpressHandler, User } from "@codersquare/shared/types";
 import crypto from "crypto";
 
 export const signInHandler: ExpressHandler<

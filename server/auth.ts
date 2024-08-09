@@ -1,4 +1,4 @@
-import { JwtObject } from "./types";
+import { JwtObject } from "@codersquare/shared/types";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
 export function signJwt(obj: JwtObject): string {

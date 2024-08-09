@@ -1,4 +1,4 @@
-import { Like, Post, User, Comment } from "../../types";
+import { Like, Post, User, Comment } from "@codersquare/shared/types";
 import { Datastore } from "../index";
 import { open as sqliteOpen, Database } from "sqlite";
 import sqlite3 from "sqlite3";
